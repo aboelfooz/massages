@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     }
 
     .container:hover {
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
 
     h2 {
@@ -38,28 +38,32 @@
       margin-bottom: 20px;
       font-size: 26px;
       font-weight: bold;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
-    textarea {
+    .form-step {
+      display: none;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    input, textarea {
       width: 100%;
       padding: 12px;
       margin: 10px 0;
       border: 2px solid #6a11cb;
       border-radius: 10px;
-      resize: none;
       font-size: 16px;
-      height: 120px;
       box-sizing: border-box;
       transition: border-color 0.3s ease;
     }
 
-    textarea:focus {
+    input:focus, textarea:focus {
       border-color: #2575fc;
       outline: none;
     }
 
-    /* تحسين زر اختيار الملف */
     input[type="file"] {
       width: 100%;
       padding: 12px;
@@ -69,27 +73,12 @@
       border-radius: 10px;
       cursor: pointer;
       box-sizing: border-box;
-      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
-    input[type="file"]:hover {
-      background-color: #e1efff;
-      transform: scale(1.05);
-    }
-
-    input[type="file"]::-webkit-file-upload-button {
-      background-color: #2575fc;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background-color 0.3s ease;
-    }
-
-    input[type="file"]::-webkit-file-upload-button:hover {
-      background-color: #6a11cb;
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
     }
 
     button {
@@ -100,14 +89,67 @@
       border-radius: 10px;
       cursor: pointer;
       font-size: 16px;
-      width: 100%;
-      margin-top: 15px;
-      transition: background-color 0.3s ease, transform 0.2s;
+      transition: background-color 0.3s ease;
+      flex: 1;
+      margin: 0 5px;
     }
 
     button:hover {
       background-color: #6a11cb;
-      transform: scale(1.05);
+    }
+
+    button:disabled {
+      background-color: #cccccc;
+      cursor: not-allowed;
+    }
+
+    .next-btn {
+      background-color: #28a745;
+    }
+
+    .prev-btn {
+      background-color: #6c757d;
+    }
+
+    .send-btn {
+      background-color: #dc3545;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #ddd;
+      color: #666;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+
+    .step.active {
+      background-color: #6a11cb;
+      color: white;
+    }
+
+    .step.completed {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .error-message {
+      color: #dc3545;
+      font-size: 14px;
+      margin-top: 5px;
+      text-align: right;
+      display: none;
     }
 
     footer {
@@ -115,112 +157,239 @@
       font-size: 14px;
       color: #bbb;
     }
-
-    .success-message {
-      color: #28a745;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .error-message {
-      color: #dc3545;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .file-status {
-      color: #f0ad4e;
-      font-size: 16px;
-      margin-top: 10px;
-      font-weight: bold;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>أرسل رسالة إلي </h2>
-    <textarea id="msg" placeholder="اكتب رسالتك هنا,يرجى ارفاق اسمك..."></textarea>
-    <input type="file" id="file" />
-    <button onclick="sendMessage()">إرسال</button>
-    <div id="fileStatus" class="file-status">لم يتم اختيار أي ملف بعد.</div>
-    <div id="messageStatus"></div>
+    <h2>نموذج الاتصال</h2>
+    
+    <div class="step-indicator">
+      <div class="step active" id="step1-ind">1</div>
+      <div class="step" id="step2-ind">2</div>
+      <div class="step" id="step3-ind">3</div>
+    </div>
+    
+    <!-- الخطوة 1: المعلومات الشخصية -->
+    <div class="form-step active" id="step1">
+      <input type="text" id="name" placeholder="الاسم الكامل" required>
+      <div class="error-message" id="name-error">يرجى إدخال الاسم الكامل</div>
+      
+      <input type="tel" id="phone" placeholder="رقم الهاتف" required>
+      <div class="error-message" id="phone-error">يرجى إدخال رقم هاتف صحيح</div>
+      
+      <input type="email" id="email" placeholder="البريد الإلكتروني">
+      <div class="error-message" id="email-error">يرجى إدخال بريد إلكتروني صحيح</div>
+      
+      <div class="btn-group">
+        <button disabled class="prev-btn">السابق</button>
+        <button class="next-btn" onclick="validateStep1()">التالي</button>
+      </div>
+    </div>
+    
+    <!-- الخطوة 2: الرسالة -->
+    <div class="form-step" id="step2">
+      <textarea id="message" placeholder="رسالتك..." rows="5"></textarea>
+      <div class="error-message" id="message-error">يرجى كتابة رسالتك</div>
+      
+      <div class="btn-group">
+        <button class="prev-btn" onclick="prevStep()">السابق</button>
+        <button class="next-btn" onclick="validateStep2()">التالي</button>
+      </div>
+    </div>
+    
+    <!-- الخطوة 3: المرفقات -->
+    <div class="form-step" id="step3">
+      <input type="file" id="file" />
+      <div id="fileStatus" style="color:#6a11cb; margin:10px 0">لم يتم اختيار أي ملف بعد.</div>
+      
+      <div class="btn-group">
+        <button class="prev-btn" onclick="prevStep()">السابق</button>
+        <button class="send-btn" onclick="sendForm()">إرسال</button>
+      </div>
+    </div>
+    
     <footer>تم تصميمه بواسطة محمد مسلم الصالح</footer>
   </div>
 
   <script>
-    // تغيير نص الحالة عند اختيار الملف
+    // متغيرات لتخزين البيانات
+    let formData = {
+      name: '',
+      phone: '',
+      email: '',
+      message: '',
+      file: null
+    };
+    
+    // تغيير حالة اختيار الملف
     document.getElementById("file").addEventListener("change", function() {
       const fileStatus = document.getElementById("fileStatus");
       if (this.files.length > 0) {
         fileStatus.textContent = `تم اختيار الملف: ${this.files[0].name}`;
-        fileStatus.style.color = "#28a745";  // تغيير اللون إلى الأخضر عند اختيار الملف
+        fileStatus.style.color = "#28a745";
+        formData.file = this.files[0];
       } else {
         fileStatus.textContent = "لم يتم اختيار أي ملف بعد.";
-        fileStatus.style.color = "#f0ad4e";  // اللون الأصفر للنص عند عدم اختيار ملف
+        fileStatus.style.color = "#6a11cb";
+        formData.file = null;
       }
     });
-
-    function sendMessage() {
-      const token = "7564887579:AAGPFNbOfwJ0oWZ0n7wdfHl3pm1fiWXgXAI"; // التوكن الجديد
-      const chatId = "5555170485"; // chat_id الذي حصلت عليه
-      const message = document.getElementById("msg").value;
-      const fileInput = document.getElementById("file");
-      const messageStatus = document.getElementById("messageStatus");
-
-      // تحقق من وجود رسالة أو ملف
-      if (!message && !fileInput.files.length) {
-        messageStatus.innerHTML = "<p class='error-message'>يرجى كتابة رسالة أو تحميل ملف.</p>";
+    
+    // التحقق من الخطوة الأولى
+    function validateStep1() {
+      const name = document.getElementById("name").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const email = document.getElementById("email").value.trim();
+      let isValid = true;
+      
+      // تحقق من الاسم
+      if (name === '') {
+        document.getElementById("name-error").style.display = 'block';
+        isValid = false;
+      } else {
+        document.getElementById("name-error").style.display = 'none';
+        formData.name = name;
+      }
+      
+      // تحقق من رقم الهاتف
+      const phoneRegex = /^(\+?\d{1,3}[- ]?)?\d{10}$/;
+      if (!phoneRegex.test(phone)) {
+        document.getElementById("phone-error").style.display = 'block';
+        isValid = false;
+      } else {
+        document.getElementById("phone-error").style.display = 'none';
+        formData.phone = phone;
+      }
+      
+      // تحقق من الإيميل (اختياري)
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        document.getElementById("email-error").style.display = 'block';
+        isValid = false;
+      } else {
+        document.getElementById("email-error").style.display = 'none';
+        formData.email = email;
+      }
+      
+      if (isValid) {
+        goToStep(2);
+      }
+    }
+    
+    // التحقق من الخطوة الثانية
+    function validateStep2() {
+      const message = document.getElementById("message").value.trim();
+      
+      if (message === '') {
+        document.getElementById("message-error").style.display = 'block';
         return;
       }
+      
+      document.getElementById("message-error").style.display = 'none';
+      formData.message = message;
+      goToStep(3);
+    }
+    
+    // الانتقال بين الخطوات
+    function goToStep(stepNumber) {
+      // تحديث المؤشرات
+      document.querySelectorAll('.step').forEach((step, index) => {
+        if (index + 1 < stepNumber) {
+          step.classList.add('completed');
+          step.classList.remove('active');
+        } else if (index + 1 === stepNumber) {
+          step.classList.add('active');
+          step.classList.remove('completed');
+        } else {
+          step.classList.remove('active', 'completed');
+        }
+      });
+      
+      // إخفاء جميع الخطوات وإظهار الخطوة المطلوبة
+      document.querySelectorAll('.form-step').forEach(step => {
+        step.classList.remove('active');
+      });
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+    }
+    
+    function prevStep() {
+      const currentStep = document.querySelector('.form-step.active').id.replace('step', '');
+      goToStep(parseInt(currentStep) - 1);
+    }
+    
+    // إرسال النموذج
+    function sendForm() {
+      const token = "7564887579:AAGPFNbOfwJ0oWZ0n7wdfHl3pm1fiWXgXAI";
+      const chatId = "5555170485";
+      
+      // بناء نص الرسالة
+      let messageText = `*رسالة جديدة*\n\n`;
+      messageText += `*الاسم:* ${formData.name}\n`;
+      messageText += `*الهاتف:* ${formData.phone}\n`;
+      if (formData.email) messageText += `*الإيميل:* ${formData.email}\n\n`;
+      messageText += `*الرسالة:*\n${formData.message}`;
+      
+      // إرسال الرسالة النصية أولاً
+      fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: messageText,
+          parse_mode: "Markdown"
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (!data.ok) {
+          alert('حدث خطأ في إرسال الرسالة النصية');
+          return;
+        }
+        
+        // إذا كان هناك ملف مرفق
+        if (formData.file) {
+          const fileFormData = new FormData();
+          fileFormData.append("chat_id", chatId);
+          fileFormData.append("document", formData.file);
+          fileFormData.append("caption", `مرفق من: ${formData.name}`);
 
-      // إذا كان هناك ملف مرفق
-      if (fileInput.files.length) {
-        const formData = new FormData();
-        formData.append("chat_id", chatId);
-        formData.append("document", fileInput.files[0]);
-
-        fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
-          method: "POST",
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            messageStatus.innerHTML = "<p class='success-message'>تم تحميل الملف بنجاح والارسال!</p>";
-          } else {
-            messageStatus.innerHTML = `<p class='error-message'>فشل تحميل الملف: ${data.description}</p>`;
-          }
-        })
-        .catch(error => {
-          messageStatus.innerHTML = `<p class='error-message'>خطأ في الاتصال: ${error}</p>`;
-        });
-      }
-
-      // إرسال رسالة إذا كانت موجودة
-      if (message) {
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            messageStatus.innerHTML = "<p class='success-message'>تم الإرسال!</p>";
-          } else {
-            messageStatus.innerHTML = `<p class='error-message'>فشل الإرسال: ${data.description}</p>`;
-          }
-        })
-        .catch(error => {
-          messageStatus.innerHTML = `<p class='error-message'>خطأ في الاتصال: ${error}</p>`;
-        });
-      }
+          return fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+            method: "POST",
+            body: fileFormData
+          });
+        }
+      })
+      .then(response => {
+        if (response) return response.json();
+        return null;
+      })
+      .then(data => {
+        if (data && !data.ok) {
+          alert('تم إرسال الرسالة ولكن حدث خطأ في تحميل الملف');
+        } else {
+          alert('تم إرسال النموذج بنجاح!');
+          // إعادة تعيين النموذج
+          document.getElementById("name").value = '';
+          document.getElementById("phone").value = '';
+          document.getElementById("email").value = '';
+          document.getElementById("message").value = '';
+          document.getElementById("file").value = '';
+          document.getElementById("fileStatus").textContent = "لم يتم اختيار أي ملف بعد.";
+          document.getElementById("fileStatus").style.color = "#6a11cb";
+          formData = {
+            name: '',
+            phone: '',
+            email: '',
+            message: '',
+            file: null
+          };
+          goToStep(1);
+        }
+      })
+      .catch(error => {
+        alert('حدث خطأ أثناء الإرسال: ' + error.message);
+      });
     }
   </script>
 </body>
