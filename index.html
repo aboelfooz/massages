@@ -603,14 +603,7 @@
       }
       
       // تحقق من رقم الهاتف
-      const phoneRegex = /^(\+?966|0)?5[0-9]{8}$/;
-      if (!phoneRegex.test(phone)) {
-        showError('phone-error', 'يرجى إدخال رقم هاتف سعودي صحيح (مثال: 0512345678)');
-        isValid = false;
-      } else {
-        hideError('phone-error');
-        formData.phone = phone;
-      }
+      
       
       // تحقق من الإيميل (اختياري)
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
