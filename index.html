@@ -3,212 +3,508 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مراسلتي</title>
+  <title>مراسلتي | النموذج المميز</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+    :root {
+      --primary: #7b2cbf;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --success: #4cc9f0;
+      --warning: #f8961e;
+      --danger: #ef233c;
+    }
+    
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    
+    body {
+      font-family: 'Tajawal', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      margin: 0;
+      padding: 20px;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      color: #fff;
+      min-height: 100vh;
+      color: var(--dark);
+      line-height: 1.6;
     }
-
+    
     .container {
-      background-color: #ffffff;
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
       padding: 40px;
       width: 100%;
-      max-width: 450px;
-      text-align: center;
-      box-sizing: border-box;
-      transition: transform 0.3s ease-in-out;
+      max-width: 500px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      animation: fadeInUp 0.8s;
     }
-
+    
     .container:hover {
-      transform: scale(1.02);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     }
-
+    
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+    }
+    
     h2 {
-      color: #6a11cb;
-      margin-bottom: 20px;
-      font-size: 26px;
-      font-weight: bold;
+      color: var(--primary);
+      margin-bottom: 25px;
+      font-size: 28px;
+      font-weight: 700;
+      text-align: center;
+      position: relative;
+      padding-bottom: 15px;
     }
-
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      border-radius: 2px;
+    }
+    
     .form-step {
       display: none;
+      animation: fadeIn 0.5s ease;
     }
-
+    
     .form-step.active {
       display: block;
     }
-
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: 2px solid #6a11cb;
-      border-radius: 10px;
-      font-size: 16px;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
+    
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
     }
-
-    input:focus, textarea:focus {
-      border-color: #2575fc;
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 15px;
+    }
+    
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      background-color: #f8f9fa;
+    }
+    
+    .input-group textarea {
+      min-height: 120px;
+      resize: vertical;
+      padding: 15px;
+    }
+    
+    .input-group input:focus,
+    .input-group textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.2);
+      background-color: white;
       outline: none;
     }
-
-    input[type="file"] {
-      width: 100%;
-      padding: 12px;
-      margin-top: 15px;
-      background-color: #f0f5ff;
-      border: 2px solid #2575fc;
-      border-radius: 10px;
-      cursor: pointer;
-      box-sizing: border-box;
+    
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      top: 40px;
+      color: var(--primary);
+      font-size: 18px;
     }
-
+    
+    .file-input-container {
+      position: relative;
+      margin-top: 20px;
+    }
+    
+    .file-input-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border: 2px dashed #adb5bd;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      color: #495057;
+    }
+    
+    .file-input-label:hover {
+      border-color: var(--primary);
+      background-color: #e9ecef;
+    }
+    
+    .file-input-label i {
+      margin-left: 10px;
+      font-size: 24px;
+      color: var(--primary);
+    }
+    
+    #file {
+      display: none;
+    }
+    
+    .file-status {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .file-status.empty {
+      background-color: #f8f9fa;
+      color: #6c757d;
+    }
+    
+    .file-status.has-file {
+      background-color: #e6f7ff;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
     .btn-group {
       display: flex;
       justify-content: space-between;
-      margin-top: 20px;
+      margin-top: 30px;
+      gap: 15px;
     }
-
+    
     button {
-      background-color: #2575fc;
-      color: white;
-      padding: 12px 25px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
       flex: 1;
-      margin: 0 5px;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-
-    button:hover {
-      background-color: #6a11cb;
+    
+    button i {
+      margin-left: 8px;
     }
-
-    button:disabled {
-      background-color: #cccccc;
-      cursor: not-allowed;
-    }
-
-    .next-btn {
-      background-color: #28a745;
-    }
-
+    
     .prev-btn {
-      background-color: #6c757d;
+      background-color: #e9ecef;
+      color: #495057;
     }
-
+    
+    .prev-btn:hover {
+      background-color: #dee2e6;
+    }
+    
+    .next-btn {
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .next-btn:hover {
+      background-color: #6a2cbe;
+      box-shadow: 0 5px 15px rgba(123, 44, 191, 0.4);
+    }
+    
     .send-btn {
-      background-color: #dc3545;
+      background-color: var(--accent);
+      color: white;
     }
-
+    
+    .send-btn:hover {
+      background-color: #f50057;
+      box-shadow: 0 5px 15px rgba(248, 37, 133, 0.4);
+    }
+    
+    button:disabled {
+      background-color: #e9ecef;
+      color: #adb5bd;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    
     .step-indicator {
       display: flex;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      position: relative;
     }
-
+    
+    .step-indicator::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background-color: #e9ecef;
+      z-index: 1;
+    }
+    
     .step {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
-      background-color: #ddd;
-      color: #666;
+      background-color: #e9ecef;
+      color: #6c757d;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 0 5px;
-      font-weight: bold;
+      font-weight: 700;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s ease;
+      border: 3px solid white;
     }
-
+    
     .step.active {
-      background-color: #6a11cb;
+      background-color: var(--primary);
       color: white;
+      transform: scale(1.1);
     }
-
+    
     .step.completed {
-      background-color: #28a745;
+      background-color: var(--success);
       color: white;
     }
-
+    
     .error-message {
-      color: #dc3545;
-      font-size: 14px;
+      color: var(--danger);
+      font-size: 13px;
       margin-top: 5px;
-      text-align: right;
+      display: none;
+      animation: shake 0.5s;
+    }
+    
+    .success-message {
+      background-color: #d4edda;
+      color: #155724;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-align: center;
       display: none;
     }
-
+    
     footer {
-      margin-top: 25px;
+      margin-top: 30px;
+      text-align: center;
+      color: #6c757d;
       font-size: 14px;
-      color: #bbb;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--success));
+      width: 33.33%;
+      transition: width 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-5px); }
+      40%, 80% { transform: translateX(5px); }
+    }
+    
+    /* تأثيرات خاصة للخطوات */
+    .form-step.exit {
+      animation: fadeOut 0.3s ease;
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    /* تصميم متجاوب */
+    @media (max-width: 576px) {
+      .container {
+        padding: 25px;
+        border-radius: 15px;
+      }
+      
+      h2 {
+        font-size: 24px;
+      }
+      
+      .btn-group {
+        flex-direction: column;
+      }
+      
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>نموذج الاتصال</h2>
+    <h2 class="animate__animated animate__fadeInDown">نموذج الاتصال المميز</h2>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
     
     <div class="step-indicator">
-      <div class="step active" id="step1-ind">1</div>
-      <div class="step" id="step2-ind">2</div>
-      <div class="step" id="step3-ind">3</div>
+      <div class="step active" id="step1-ind"><i class="fas fa-user"></i></div>
+      <div class="step" id="step2-ind"><i class="fas fa-comment"></i></div>
+      <div class="step" id="step3-ind"><i class="fas fa-paperclip"></i></div>
     </div>
     
     <!-- الخطوة 1: المعلومات الشخصية -->
-    <div class="form-step active" id="step1">
-      <input type="text" id="name" placeholder="الاسم الكامل" required>
-      <div class="error-message" id="name-error">يرجى إدخال الاسم الكامل</div>
+    <div class="form-step active animate__animated animate__fadeIn" id="step1">
+      <div class="input-group">
+        <label for="name">الاسم الكامل</label>
+        <i class="input-icon fas fa-user-tag"></i>
+        <input type="text" id="name" placeholder="أدخل اسمك الثلاثي" required>
+        <div class="error-message" id="name-error">
+          <i class="fas fa-exclamation-circle"></i> يرجى إدخال الاسم الكامل
+        </div>
+      </div>
       
-      <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-      <div class="error-message" id="phone-error">يرجى إدخال رقم هاتف صحيح</div>
+      <div class="input-group">
+        <label for="phone">رقم الهاتف</label>
+        <i class="input-icon fas fa-phone"></i>
+        <input type="tel" id="phone" placeholder="مثال: 0512345678" required>
+        <div class="error-message" id="phone-error">
+          <i class="fas fa-exclamation-circle"></i> يرجى إدخال رقم هاتف صحيح
+        </div>
+      </div>
       
-      <input type="email" id="email" placeholder="البريد الإلكتروني">
-      <div class="error-message" id="email-error">يرجى إدخال بريد إلكتروني صحيح</div>
+      <div class="input-group">
+        <label for="email">البريد الإلكتروني (اختياري)</label>
+        <i class="input-icon fas fa-envelope"></i>
+        <input type="email" id="email" placeholder="example@domain.com">
+        <div class="error-message" id="email-error">
+          <i class="fas fa-exclamation-circle"></i> يرجى إدخال بريد إلكتروني صحيح
+        </div>
+      </div>
       
       <div class="btn-group">
-        <button disabled class="prev-btn">السابق</button>
-        <button class="next-btn" onclick="validateStep1()">التالي</button>
+        <button class="prev-btn" disabled>
+          <i class="fas fa-arrow-right"></i> السابق
+        </button>
+        <button class="next-btn" onclick="validateStep1()">
+          التالي <i class="fas fa-arrow-left"></i>
+        </button>
       </div>
     </div>
     
     <!-- الخطوة 2: الرسالة -->
-    <div class="form-step" id="step2">
-      <textarea id="message" placeholder="رسالتك..." rows="5"></textarea>
-      <div class="error-message" id="message-error">يرجى كتابة رسالتك</div>
+    <div class="form-step animate__animated" id="step2">
+      <div class="input-group">
+        <label for="message">رسالتك</label>
+        <textarea id="message" placeholder="اكتب رسالتك هنا..."></textarea>
+        <div class="error-message" id="message-error">
+          <i class="fas fa-exclamation-circle"></i> يرجى كتابة رسالتك
+        </div>
+      </div>
       
       <div class="btn-group">
-        <button class="prev-btn" onclick="prevStep()">السابق</button>
-        <button class="next-btn" onclick="validateStep2()">التالي</button>
+        <button class="prev-btn" onclick="prevStep()">
+          <i class="fas fa-arrow-right"></i> السابق
+        </button>
+        <button class="next-btn" onclick="validateStep2()">
+          التالي <i class="fas fa-arrow-left"></i>
+        </button>
       </div>
     </div>
     
     <!-- الخطوة 3: المرفقات -->
-    <div class="form-step" id="step3">
-      <input type="file" id="file" />
-      <div id="fileStatus" style="color:#6a11cb; margin:10px 0">لم يتم اختيار أي ملف بعد.</div>
+    <div class="form-step animate__animated" id="step3">
+      <div class="input-group">
+        <label>إرفاق ملف (اختياري)</label>
+        <div class="file-input-container">
+          <label for="file" class="file-input-label">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>انقر لرفع ملف أو اسحبه هنا</span>
+          </label>
+          <input type="file" id="file">
+          <div id="fileStatus" class="file-status empty">
+            <i class="fas fa-info-circle"></i> لم يتم اختيار أي ملف بعد
+          </div>
+        </div>
+      </div>
       
       <div class="btn-group">
-        <button class="prev-btn" onclick="prevStep()">السابق</button>
-        <button class="send-btn" onclick="sendForm()">إرسال</button>
+        <button class="prev-btn" onclick="prevStep()">
+          <i class="fas fa-arrow-right"></i> السابق
+        </button>
+        <button class="send-btn" onclick="sendForm()">
+          إرسال <i class="fas fa-paper-plane"></i>
+        </button>
       </div>
     </div>
     
-    <footer>تم تصميمه بواسطة محمد مسلم الصالح</footer>
+    <div class="success-message" id="successMessage">
+      <i class="fas fa-check-circle"></i> تم إرسال النموذج بنجاح! سنتواصل معك قريباً.
+    </div>
+    
+    <footer>
+      <p>تم التصميم والتطوير بواسطة <span style="color: var(--primary); font-weight: 600;">محمد مسلم الصالح</span></p>
+      <p class="animate__animated animate__fadeIn animate__infinite animate__slower" style="margin-top: 5px; color: var(--accent);">
+        <i class="fas fa-heart"></i> شكراً لاستخدامك خدماتنا
+      </p>
+    </footer>
   </div>
 
   <script>
@@ -221,19 +517,74 @@
       file: null
     };
     
-    // تغيير حالة اختيار الملف
-    document.getElementById("file").addEventListener("change", function() {
-      const fileStatus = document.getElementById("fileStatus");
-      if (this.files.length > 0) {
-        fileStatus.textContent = `تم اختيار الملف: ${this.files[0].name}`;
-        fileStatus.style.color = "#28a745";
-        formData.file = this.files[0];
+    // تهيئة النموذج عند التحميل
+    document.addEventListener('DOMContentLoaded', function() {
+      // تأثيرات عند تحميل الصفحة
+      setTimeout(() => {
+        document.querySelector('h2').classList.add('animate__pulse');
+      }, 1000);
+      
+      // إعداد سحب وإفلات الملفات
+      const fileInput = document.getElementById('file');
+      const fileLabel = document.querySelector('.file-input-label');
+      
+      fileLabel.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileLabel.style.borderColor = 'var(--primary)';
+        fileLabel.style.backgroundColor = 'var(--light)';
+      });
+      
+      fileLabel.addEventListener('dragleave', () => {
+        fileLabel.style.borderColor = '#adb5bd';
+        fileLabel.style.backgroundColor = '#f8f9fa';
+      });
+      
+      fileLabel.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileLabel.style.borderColor = '#adb5bd';
+        fileLabel.style.backgroundColor = '#f8f9fa';
+        
+        if (e.dataTransfer.files.length) {
+          fileInput.files = e.dataTransfer.files;
+          updateFileStatus();
+        }
+      });
+    });
+    
+    // تحديث حالة الملف المرفق
+    function updateFileStatus() {
+      const fileInput = document.getElementById('file');
+      const fileStatus = document.getElementById('fileStatus');
+      
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        formData.file = file;
+        
+        fileStatus.innerHTML = `
+          <i class="fas fa-check-circle"></i> 
+          تم اختيار الملف: <strong>${file.name}</strong>
+          <br>
+          <small>الحجم: ${formatFileSize(file.size)}</small>
+        `;
+        fileStatus.className = 'file-status has-file';
       } else {
-        fileStatus.textContent = "لم يتم اختيار أي ملف بعد.";
-        fileStatus.style.color = "#6a11cb";
+        fileStatus.innerHTML = '<i class="fas fa-info-circle"></i> لم يتم اختيار أي ملف بعد';
+        fileStatus.className = 'file-status empty';
         formData.file = null;
       }
-    });
+    }
+    
+    // تحويل حجم الملف إلى صيغة مقروءة
+    function formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes';
+      const k = 1024;
+      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+      const i = Math.floor(Math.log(bytes) / Math.log(k));
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    // تغيير حالة اختيار الملف
+    document.getElementById("file").addEventListener("change", updateFileStatus);
     
     // التحقق من الخطوة الأولى
     function validateStep1() {
@@ -243,30 +594,30 @@
       let isValid = true;
       
       // تحقق من الاسم
-      if (name === '') {
-        document.getElementById("name-error").style.display = 'block';
+      if (name === '' || name.split(' ').length < 2) {
+        showError('name-error', 'يرجى إدخال الاسم الكامل (الاسم الثلاثي)');
         isValid = false;
       } else {
-        document.getElementById("name-error").style.display = 'none';
+        hideError('name-error');
         formData.name = name;
       }
       
       // تحقق من رقم الهاتف
-      const phoneRegex = /^(\+?\d{1,3}[- ]?)?\d{10}$/;
+      const phoneRegex = /^(\+?966|0)?5[0-9]{8}$/;
       if (!phoneRegex.test(phone)) {
-        document.getElementById("phone-error").style.display = 'block';
+        showError('phone-error', 'يرجى إدخال رقم هاتف سعودي صحيح (مثال: 0512345678)');
         isValid = false;
       } else {
-        document.getElementById("phone-error").style.display = 'none';
+        hideError('phone-error');
         formData.phone = phone;
       }
       
       // تحقق من الإيميل (اختياري)
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        document.getElementById("email-error").style.display = 'block';
+        showError('email-error', 'يرجى إدخال بريد إلكتروني صحيح (مثال: name@domain.com)');
         isValid = false;
       } else {
-        document.getElementById("email-error").style.display = 'none';
+        hideError('email-error');
         formData.email = email;
       }
       
@@ -279,19 +630,78 @@
     function validateStep2() {
       const message = document.getElementById("message").value.trim();
       
-      if (message === '') {
-        document.getElementById("message-error").style.display = 'block';
+      if (message === '' || message.length < 10) {
+        showError('message-error', 'يرجى كتابة رسالة مفصلة (10 أحرف على الأقل)');
         return;
       }
       
-      document.getElementById("message-error").style.display = 'none';
+      hideError('message-error');
       formData.message = message;
       goToStep(3);
     }
     
-    // الانتقال بين الخطوات
+    // عرض رسالة الخطأ
+    function showError(id, message) {
+      const errorElement = document.getElementById(id);
+      errorElement.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      errorElement.style.display = 'block';
+      
+      // تأثير اهتزاز
+      errorElement.classList.remove('animate__shakeX');
+      void errorElement.offsetWidth; // Trigger reflow
+      errorElement.classList.add('animate__shakeX');
+      
+      // تمييز الحقل الخطأ
+      const inputField = errorElement.previousElementSibling;
+      inputField.style.borderColor = 'var(--danger)';
+      inputField.style.boxShadow = '0 0 0 3px rgba(239, 35, 60, 0.2)';
+      
+      setTimeout(() => {
+        inputField.style.borderColor = '';
+        inputField.style.boxShadow = '';
+      }, 2000);
+    }
+    
+    // إخفاء رسالة الخطأ
+    function hideError(id) {
+      const errorElement = document.getElementById(id);
+      errorElement.style.display = 'none';
+    }
+    
+    // الانتقال بين الخطوات مع تأثيرات
     function goToStep(stepNumber) {
-      // تحديث المؤشرات
+      const currentStep = document.querySelector('.form-step.active');
+      const nextStep = document.getElementById(`step${stepNumber}`);
+      
+      // تأثير الخروج للخطوة الحالية
+      currentStep.classList.remove('animate__fadeIn');
+      currentStep.classList.add('animate__fadeOut');
+      
+      setTimeout(() => {
+        // إخفاء جميع الخطوات
+        document.querySelectorAll('.form-step').forEach(step => {
+          step.classList.remove('active', 'animate__fadeIn', 'animate__fadeOut');
+        });
+        
+        // إظهار الخطوة الجديدة
+        nextStep.classList.add('active', 'animate__fadeIn');
+        
+        // تحديث مؤشر الخطوات
+        updateStepIndicator(stepNumber);
+        
+        // تحديث شريط التقدم
+        updateProgressBar(stepNumber);
+      }, 300);
+    }
+    
+    // العودة للخطوة السابقة
+    function prevStep() {
+      const currentStep = document.querySelector('.form-step.active').id.replace('step', '');
+      goToStep(parseInt(currentStep) - 1);
+    }
+    
+    // تحديث مؤشر الخطوات
+    function updateStepIndicator(stepNumber) {
       document.querySelectorAll('.step').forEach((step, index) => {
         if (index + 1 < stepNumber) {
           step.classList.add('completed');
@@ -303,17 +713,12 @@
           step.classList.remove('active', 'completed');
         }
       });
-      
-      // إخفاء جميع الخطوات وإظهار الخطوة المطلوبة
-      document.querySelectorAll('.form-step').forEach(step => {
-        step.classList.remove('active');
-      });
-      document.getElementById(`step${stepNumber}`).classList.add('active');
     }
     
-    function prevStep() {
-      const currentStep = document.querySelector('.form-step.active').id.replace('step', '');
-      goToStep(parseInt(currentStep) - 1);
+    // تحديث شريط التقدم
+    function updateProgressBar(stepNumber) {
+      const progressPercent = (stepNumber / 3) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
     }
     
     // إرسال النموذج
@@ -321,12 +726,18 @@
       const token = "7564887579:AAGPFNbOfwJ0oWZ0n7wdfHl3pm1fiWXgXAI";
       const chatId = "5555170485";
       
+      // عرض حالة التحميل
+      const sendBtn = document.querySelector('.send-btn');
+      const originalBtnText = sendBtn.innerHTML;
+      sendBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+      sendBtn.disabled = true;
+      
       // بناء نص الرسالة
-      let messageText = `*رسالة جديدة*\n\n`;
-      messageText += `*الاسم:* ${formData.name}\n`;
-      messageText += `*الهاتف:* ${formData.phone}\n`;
-      if (formData.email) messageText += `*الإيميل:* ${formData.email}\n\n`;
-      messageText += `*الرسالة:*\n${formData.message}`;
+      let messageText = `📨 *رسالة جديدة من النموذج المميز*\n\n`;
+      messageText += `👤 *الاسم:* ${formData.name}\n`;
+      messageText += `📱 *الهاتف:* ${formData.phone}\n`;
+      if (formData.email) messageText += `✉️ *الإيميل:* ${formData.email}\n\n`;
+      messageText += `📝 *الرسالة:*\n${formData.message}`;
       
       // إرسال الرسالة النصية أولاً
       fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
@@ -343,8 +754,7 @@
       .then(response => response.json())
       .then(data => {
         if (!data.ok) {
-          alert('حدث خطأ في إرسال الرسالة النصية');
-          return;
+          throw new Error('فشل إرسال الرسالة النصية');
         }
         
         // إذا كان هناك ملف مرفق
@@ -352,13 +762,14 @@
           const fileFormData = new FormData();
           fileFormData.append("chat_id", chatId);
           fileFormData.append("document", formData.file);
-          fileFormData.append("caption", `مرفق من: ${formData.name}`);
+          fileFormData.append("caption", `📎 مرفق من: ${formData.name}`);
 
           return fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
             method: "POST",
             body: fileFormData
           });
         }
+        return null;
       })
       .then(response => {
         if (response) return response.json();
@@ -366,31 +777,52 @@
       })
       .then(data => {
         if (data && !data.ok) {
-          alert('تم إرسال الرسالة ولكن حدث خطأ في تحميل الملف');
-        } else {
-          alert('تم إرسال النموذج بنجاح!');
-          // إعادة تعيين النموذج
-          document.getElementById("name").value = '';
-          document.getElementById("phone").value = '';
-          document.getElementById("email").value = '';
-          document.getElementById("message").value = '';
-          document.getElementById("file").value = '';
-          document.getElementById("fileStatus").textContent = "لم يتم اختيار أي ملف بعد.";
-          document.getElementById("fileStatus").style.color = "#6a11cb";
-          formData = {
-            name: '',
-            phone: '',
-            email: '',
-            message: '',
-            file: null
-          };
-          goToStep(1);
+          throw new Error('تم إرسال الرسالة ولكن حدث خطأ في تحميل الملف');
         }
+        
+        // عرض رسالة النجاح
+        document.getElementById('successMessage').style.display = 'block';
+        
+        // إعادة تعيين النموذج بعد 3 ثوان
+        setTimeout(resetForm, 3000);
       })
       .catch(error => {
-        alert('حدث خطأ أثناء الإرسال: ' + error.message);
+        alert(`❌ حدث خطأ أثناء الإرسال: ${error.message}`);
+      })
+      .finally(() => {
+        sendBtn.innerHTML = originalBtnText;
+        sendBtn.disabled = false;
       });
     }
+    
+    // إعادة تعيين النموذج
+    function resetForm() {
+      // مسح جميع الحقول
+      document.getElementById("name").value = '';
+      document.getElementById("phone").value = '';
+      document.getElementById("email").value = '';
+      document.getElementById("message").value = '';
+      document.getElementById("file").value = '';
+      updateFileStatus();
+      
+      // إخفاء رسالة النجاح
+      document.getElementById('successMessage').style.display = 'none';
+      
+      // العودة إلى الخطوة الأولى
+      goToStep(1);
+      
+      // إعادة تعيين البيانات
+      formData = {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        file: null
+      };
+    }
   </script>
+  
+  <!-- تحميل خط Tajawal للعربية -->
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
 </body>
 </html>
