@@ -603,6 +603,14 @@
       }
       
       // تحقق من رقم الهاتف
+       const phoneRegex = 
+      if (!phoneRegex.test(phone)) {
+        showError('phone-error', 'يرجى إدخال رقم هاتف  صحيح : )');
+        isValid = false;
+      } else {
+        hideError('phone-error');
+        formData.phone = phone;
+      }
       
       
       // تحقق من الإيميل (اختياري)
